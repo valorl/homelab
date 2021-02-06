@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: config-jellyfin
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /volume1/config/
+    server: 192.168.1.240
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: config-jellyfin
+  namespace: cavern
+spec:
+  volumeName: config-jellyfin
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
