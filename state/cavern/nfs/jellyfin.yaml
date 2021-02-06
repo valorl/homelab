@@ -9,7 +9,7 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /volume1/config/
+    path: /volume1/config/jellyfin
     server: 192.168.1.240
 ---
 apiVersion: v1
