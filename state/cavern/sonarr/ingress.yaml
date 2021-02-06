@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sonarr
+  namespace: cavern
+  labels:
+    app: sonarr
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: sonarr.h.valmil.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: sonarr
+            port:
+              name: http
+        path: /
+        pathType: Prefix
