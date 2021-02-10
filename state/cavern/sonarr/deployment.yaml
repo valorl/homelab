@@ -52,7 +52,6 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-          subPath: config
         - mountPath: /mnt/media
           name: media
       # - name: exportarr
