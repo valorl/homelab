@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nzbget
+  namespace: cavern
+  labels:
+    app: nzbget
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: nzbget.h.valmil.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: nzbget
+            port:
+              name: http
+        path: /
+        pathType: Prefix

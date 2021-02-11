@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nzbget
+  name: nzbget
+  namespace: cavern
+spec:
+  selector:
+    matchLabels:
+      app: nzbget
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nzbget
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: nzbget
+        image: linuxserver/nzbget:latest
+        env:
+        - name: PUID
+          value: "1001"
+        - name: PGID
+          value: "1001"
+        - name: TZ
+          value: "Europe/Copenhagen"
+        ports:
+        - containerPort: 6789
+          name: http
+          protocol: TCP
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: http
+        resources:
+          requests:
+            cpu: "0.5"
+            memory: 512Mi
+          limits:
+            cpu: "2"
+            memory: 2Gi
+        volumeMounts:
+        - mountPath: /config
+          name: config
+        - mountPath: /downloads
+          name: media
+          subPath: downloads/nzbget
+      volumes:
+      - name: media
+        persistentVolumeClaim:
+          claimName: media
+      - name: config
+        persistentVolumeClaim:
+          claimName: config-nzbget
