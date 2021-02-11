@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
       - name: jellyfin
-        image: linuxserver/jellyfin:latest
+        image: linuxserver/jellyfin:nightly
+        imagePullPolicy: Always
         env:
         - name: PUID
           value: "1001"
