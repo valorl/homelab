@@ -1,0 +1,13 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: jellyfin-api-key
+  namespace: cavern
+spec:
+  encryptedData:
+    apikey: AgDIVNqa4oy4wZAo+8F2yvlPp8C/TisW91UfxMZ9s2BG/5EUF9QPnwrXN4LfXv89N6K+Aq21z351zDILaD0J/PX5K71bYSoqyE+fFBgsdZODeC2xfih7l6RQLMPpbInPCOaYNbFBeOWsAofqefKZHmvktt8Ej4/HNdl+Qw7ohmhdNYfnXhe1WaX9+ksl39rALDzaGDy64VsvzUFn5hvo8T9d5LOFWEGubAZIVg3cs0ILXHmJ+FfOGyVoZmfLDN4gJpN9KTUuR8mjI6ePlPxwnkLVrnH6/tWJERXFdDYhggHLfnI/IAqL0kj/vvocMIBFgx6flsY31z5iEJ9kADWuXxM0BX5pFlJvtL5edlnNuhiqKOZWCCJQ5K7uOk8reNxAs/qJY8nmc12WoTT6RBrJZHRjROoulm1anzb5yyNlOu8UDP8qBqr8dRs5fs2yQwI9bFk2wrhs91o9kNTrBCp5MS3/Pll33HeBaC/Pe+eNoeR1uPPYr8n+7tlHKkCHYXiimbb4L2hgLeL2SkdLM4Tyg03bWGiidNVDpn9faruhWU6LbZJ3eqb+BGOGOEni3zNiSXEbQ0rSdSUzRurHUa8Qjt4Ang63qfOQfQQdYAVZvfxT3lEkL/Pvi52n5xwnaz5WIyeMkAfoV0PLQKaADeyghUIh8RM9R0BVvwcXMCp8tY9FElTkTjS0R6a5nZ97jZOjG1WAqEj9skDLmNtMx3+nC+1OFu50vHCGLvGx/r2IUCwciQ==
+  template:
+    metadata:
+      name: jellyfin-api-key
+      namespace: cavern
+
