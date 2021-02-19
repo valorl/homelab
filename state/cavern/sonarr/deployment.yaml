@@ -106,8 +106,8 @@ spec:
           name: sonarr-jellyfin-script
           defaultMode: 0777
       - name: config
-        persistentVolumeClaim:
-          claimName: config-sonarr
+        hostPath:
+          path: /data/sonarr
       - name: media
         persistentVolumeClaim:
           claimName: media
