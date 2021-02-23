@@ -50,7 +50,7 @@ spec:
         volumeMounts:
         - mountPath: /config
           name: config
-        - mountPath: /downloads
+        - mountPath: /mnt/media/downloads/nzbget
           name: media
           subPath: downloads/nzbget
       volumes:
