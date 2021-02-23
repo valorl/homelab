@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bazarr
+  namespace: cavern
+  labels:
+    app: bazarr
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: bazarr.h.valmil.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: bazarr
+            port:
+              name: http
+        path: /
+        pathType: Prefix

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bazarr
+  namespace: cavern
+  labels:
+    app.kubernetes.io/name: bazarr
+spec:
+  ports:
+    - name: http
+      targetPort: http
+      port: 6767
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: bazarr
