@@ -1,0 +1,60 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: mayastor
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://openebs.github.io/mayastor-extensions/
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: mayastor
+  namespace: flux-system
+spec:
+  targetNamespace: mayastor
+  chart:
+    spec:
+      chart: mayastor
+      version: 2.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: mayastor
+        namespace: flux-system
+  interval: 1m
+  values:
+    obs:
+      callhome:
+        enabled: false
+    promtail:
+      enabled: false
+    loki-stack:
+      enabled: false
+    eventing:
+      enabled: false
+    tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+    - key: "node.kubernetes.io/not-ready"
+      operator: "Exists"
+      effect: "NoSchedule"
+    etcd:
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoSchedule"
+    localpv-provisioner:
+      localpv:
+        tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+        - key: "node.kubernetes.io/not-ready"
+          operator: "Exists"
+          effect: "NoSchedule"
