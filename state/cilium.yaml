@@ -14,11 +14,15 @@ metadata:
   name: cilium
   namespace: kube-system
 spec:
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
   interval: 5m
   chart:
     spec:
       chart: cilium
-      version: 1.15.6
+      version: 1.17.3
       sourceRef:
         kind: HelmRepository
         name: cilium
@@ -51,3 +55,26 @@ spec:
       hostRoot: /sys/fs/cgroup
     k8sServiceHost: localhost
     k8sServicePort: 7445
+    bgpControlPlane:
+      enabled: true
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPClusterConfig
+metadata:
+  name: default
+spec:
+  bgpInstances:
+    - name: router
+      localASN: 64513
+      peers:
+        - name: opnsense
+          peerAddress: 192.168.1.1
+          peerASN: 64512
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: lb-pool
+spec:
+  blocks:
+    - cidr: 192.168.1.64/28  # Adjust your IP range here
