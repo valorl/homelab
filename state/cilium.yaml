@@ -70,6 +70,8 @@ spec:
         - name: opnsense
           peerAddress: 192.168.1.1
           peerASN: 64512
+          peerConfigRef:
+            name: default
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
@@ -78,3 +80,31 @@ metadata:
 spec:
   blocks:
     - cidr: 192.168.1.64/28  # Adjust your IP range here
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPPeerConfig
+metadata:
+  name: default
+spec:
+  families:
+    - afi: ipv4
+      safi: unicast
+      advertisements:
+        matchLabels:
+          advertise: bgp
+---
+apiVersion: cilium.io/v2alpha1
+kind: CiliumBGPAdvertisement
+metadata:
+  name: default
+  labels:
+    advertise: bgp
+spec:
+  advertisements:
+    - advertisementType: "Service"
+      service:
+        addresses:                  # <-- specify the service types to advertise
+          - LoadBalancerIP
+      selector:                     # <-- select Services to advertise
+        matchExpressions:
+          - { key: bgp, operator: In, values: [ "true" ] }
