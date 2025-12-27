@@ -28,6 +28,8 @@ spec:
         name: cilium
         namespace: flux-system
   values:
+    envoy:
+      enabled: false
     ipam:
       mode: kubernetes
     kubeProxyReplacement: true
@@ -79,7 +81,7 @@ metadata:
   name: lb-pool
 spec:
   blocks:
-    - cidr: 192.168.1.64/28  # Adjust your IP range here
+    - cidr: 192.168.1.64/28 # Adjust your IP range here
 ---
 apiVersion: cilium.io/v2alpha1
 kind: CiliumBGPPeerConfig
@@ -103,8 +105,8 @@ spec:
   advertisements:
     - advertisementType: "Service"
       service:
-        addresses:                  # <-- specify the service types to advertise
+        addresses: # <-- specify the service types to advertise
           - LoadBalancerIP
-      selector:                     # <-- select Services to advertise
+      selector: # <-- select Services to advertise
         matchExpressions:
-          - { key: bgp, operator: In, values: [ "true" ] }
+          - { key: bgp, operator: In, values: ["true"] }
